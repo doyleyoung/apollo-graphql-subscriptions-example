@@ -1,8 +1,8 @@
-# ApolloClient GraphQL Issue
+# Apollo GraphQL Subscriptions Example
 
-ApolloClient fails to provide subscription hook "subscribeToMore".
+Apollo Client Subscriptions example
 
-## Start server
+## Start Susbcription Client and Server apps
 
 In a terminal do:
 
@@ -18,4 +18,9 @@ cd client-app
 yarn start
 ```
 
-See [net_interface.js](https://github.com/bmsantos/graphql_subscriptions_issue/blob/master/client-app/src/net_interface.js#L18) for issue.
+## Test it
+
+1. Open a browser window with the [client page](http://localhost:3000)
+2. Open another browser window with [GraphiQL](http://localhost:5060/graphiql?operationName=undefined&query=mutation {%0A addMessage(message%3A "Hello from Apollo Susbcriptions")%0A}%0A)
+
+Your client page should now be displaying the new message.
