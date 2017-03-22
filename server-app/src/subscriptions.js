@@ -4,10 +4,7 @@ import {makeExecutableSchema} from "graphql-tools";
 const pubsub = new PubSub();
 
 // The DB
-const messages = [
-  'Hello from Subscription Server Example.',
-  'GraphiQL is enabled. Use it with mutation { addMessage(message: "My message")} to add entries to this mem DB'
-];
+const messages = [];
 
 const typeDefs = `
 type Query {
@@ -29,8 +26,9 @@ const resolvers = {
   },
   Mutation: {
     addMessage(root, {message}) {
-      messages.push(message);
-      pubsub.publish('newMessage', message);
+      let entry = JSON.stringify({id: messages.length,  message: message});
+      messages.push(entry);
+      pubsub.publish('newMessage', entry);
       return messages;
     },
   },

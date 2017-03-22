@@ -13,22 +13,16 @@ let networkInterface = addGraphQLSubscriptions(createNetworkInterface({uri}), ws
 
 const client = new ApolloClient({ networkInterface });
 
-// At this stage, client should have been injected with "subscribeToMore":
-// https://github.com/apollographql/subscriptions-transport-ws#client-browser
-client.subscribeToMore({
-  document: gql`
+let subOptions = {
+  query: gql`
       subscription onNewMessage {
           newMessage
       }
   `,
-  variables: {},
-  updateQuery: (previousResult, {subscriptionData}) => {
-    console.log(`Previous Result: ${previousResult}`);
-    console.log(`Subscription Data: ${subscriptionData}`);
-    const newResult = subscriptionData.data.message;
-    console.log(`New Result: ${subscriptionData.data.message}`);
-    return newResult;
-  },
-});
+  variables: {}
+};
 
-export default client;
+// The subscribe method seems to be creating an Observable to be subscribed to
+let subsObservable = client.subscribe(subOptions);
+
+export { client, subsObservable };
