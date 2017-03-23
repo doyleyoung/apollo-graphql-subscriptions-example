@@ -1,6 +1,6 @@
 # Apollo GraphQL Subscriptions Example
 
-Apollo Client Subscriptions example
+Simple application used to demonstrate minimalistic setup for an Apollo GraphQL Subscriptions architecture.
 
 ## System Architecture
 
@@ -15,7 +15,7 @@ Apollo Client Subscriptions example
          |          GET /graphiql        | GraphQL |
          '-----------------------------> | Server  |
                     Websocket            '---------'
-
+```
 
  * Browser starts by connecting to Web App
  * Web page opens websocket tunnel to GraphQL server and subscribes to new messages
