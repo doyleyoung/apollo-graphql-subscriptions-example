@@ -17,9 +17,10 @@ Simple application used to demonstrate minimalistic setup for an Apollo GraphQL 
                     Websocket            '---------'
 ```
 
- * Browser starts by connecting to Web App
+ * Browser starts by connecting to Web App and fetch available messages
  * Web page opens websocket tunnel to GraphQL server and subscribes to new messages
- * GraphQL mutations can then be submitted to the GraphQL server (e.g. using GraphiQL, CURL or any other HTTP client that can POST)
+ * GraphQL mutations can then be submitted to the GraphQL server and new messages submitted to websocket clients for browser update
+
 
 
 ## Start Susbcription Client and Server apps
@@ -45,7 +46,7 @@ yarn start
 
 Your client page should now be displaying the new message.
 
-Using CURL:
+Using CURL to exercise GraphQL Mutation:
 ```bash
 curl -k -H "Content-Type: application/json" -X POST -d '{ "operationName": null, "query": "mutation { addMessage(message: \"My CURL message\") }", "variables": "{}" }' http://localhost:5060/graphql
 ```
