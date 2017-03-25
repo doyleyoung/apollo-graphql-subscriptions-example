@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { gql, graphql } from "react-apollo";
-import { subsObservable } from "./net_interface";
+import { gql, graphql, withApollo } from "react-apollo";
 
+//@withApollo - react-scripts do not yet support decorators - https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#can-i-use-decorators
 class App extends Component {
 
   constructor() {
@@ -9,12 +9,21 @@ class App extends Component {
     this.state = {
       messageList: []
     };
-    this.subscription = this.subscribe();
-    console.log(`Subscribed for new messages with ID: ${this.subscription._networkSubscriptionId}`);
   }
 
   subscribe = () => {
-    return subsObservable.subscribe({
+    let subOptions = {
+      query: gql`
+          subscription onNewMessage {
+              newMessage
+          }
+      `,
+      variables: {}
+    };
+
+    return this.props.client
+    .subscribe(subOptions)
+    .subscribe({
       error: (error) => {
         console.log(`Subscription error: ${error}`);
       },
@@ -29,6 +38,12 @@ class App extends Component {
     this.setState({
       messageList: [...nextProps.data.messages]
     });
+    this.subscription = this.subscribe();
+    console.log(`Subscribed for new messages`);
+  };
+
+  componentWillUnmount = () => {
+    this.subscription.unsubscribe();
   };
 
   onNewMessage = (message) => {
@@ -54,16 +69,16 @@ class App extends Component {
           </p>
         </header>
         { loading ? (<p>Loading…</p>) : (
-            <ul> { this.state.messageList.map(entry => JSON.parse(entry)).map(entry => (
-              <li key={entry.id}>{entry.message}</li>)) }
-            </ul> )}
+          <ul> { this.state.messageList.map(entry => JSON.parse(entry)).map(entry => (
+            <li key={entry.id}>{entry.message}</li>)) }
+          </ul> )}
       </main>
     );
   }
 }
 
 export default graphql(
-    gql`query {
-        messages
-    }`,
-)(App)
+  gql`query {
+      messages
+  }`,
+)(withApollo(App))
