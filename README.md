@@ -53,4 +53,4 @@ curl -k -H "Content-Type: application/json" -X POST -d '{ "operationName": null,
 
 ## Using the withApollo decorator
 
-For an example using the ***withApollo*** decorator see the [withApollo branch](/bmsantos/apollo-graphql-subscriptions-example/tree/withApollo).
+For an example using the [***withApollo***](http://dev.apollodata.com/react/higher-order-components.html#withApollo) decorator see the [withApollo branch](/bmsantos/apollo-graphql-subscriptions-example/tree/withApollo).
