@@ -50,3 +50,18 @@ Using CURL to exercise GraphQL Mutation:
 ```bash
 curl -k -H "Content-Type: application/json" -X POST -d '{ "operationName": null, "query": "mutation { addMessage(message: \"My CURL message\") }", "variables": "{}" }' http://localhost:5060/graphql
 ```
+
+@@ -47,6 +47,10 @@ yarn start
+ Your client page should now be displaying the new message.
+ 
+ Using CURL to exercise GraphQL Mutation:
+ ```bash
+ curl -k -H "Content-Type: application/json" -X POST -d '{ "operationName": null, "query": "mutation { addMessage(message: \"My CURL message\") }", "variables": "{}" }' http://localhost:5060/graphql
+-```
+\ No newline at end of file
++```
++
++## Using the withApollo decorator
++
++For an example using the ***withApollo*** decorator see the [withApollo branch](/bmsantos/apollo-graphql-subscriptions-example/tree/withApollo).
+
