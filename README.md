@@ -42,7 +42,7 @@ yarn start
 ## Test it
 
 1. Open a browser window with the [client page](http://localhost:3000)
-2. Open another browser window with [GraphiQL](http://localhost:5060/graphiql?operationName=&query=mutation+%7B+addMessage%28message%3A+%22Hello+from+Apollo+Susbcriptions%22%29%7D) and press ►
+2. Open another browser window with [GraphiQL](http://localhost:5060/graphiql?operationName=&query=mutation+AddMessage+%7B+addMessage%28message%3A+%22Hello+from+Apollo+Susbcriptions%22%29%7D) and press ►
 
 Your client page should now be displaying the new message.
 
