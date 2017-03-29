@@ -56,6 +56,6 @@ curl -k -H "Content-Type: application/json" -X POST -d '{ "operationName": null,
 For an example using the [***withApollo***](http://dev.apollodata.com/react/higher-order-components.html#withApollo) decorator see the [withApollo branch](/bmsantos/apollo-graphql-subscriptions-example/tree/withApollo).
 
 
-## Using Apollo's [subscribeToMore](http://dev.apollodata.com/react/subscriptions.html#subscribe-to-more)
+## Using Apollo's susbcribeToMore
 
-Checkout [subscribeToMore branch](http://dev.apollodata.com/react/subscriptions.html#subscribe-to-more) for an example implementation using it.
+Checkout [subscribeToMore branch](http://dev.apollodata.com/react/subscriptions.html#subscribe-to-more) for an example implementation using Apollo's [subscribeToMore](http://dev.apollodata.com/react/subscriptions.html#subscribe-to-more) subscription callback function.
