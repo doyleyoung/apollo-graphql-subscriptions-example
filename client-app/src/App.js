@@ -6,8 +6,8 @@ const GET_MESSAGES_QUERY = gql`query {
 }`;
 
 const ON_NEW_MESSAGE_SUBSCRIPTION = gql`
-    subscription onNewMessage {
-        newMessage
+    subscription onNewMessage($userId: Int!) {
+        newMessage(userId: $userId)
     }
 `;
 
@@ -40,6 +40,9 @@ class App extends Component {
 
       this.subscription = nextProps.data.subscribeToMore({
         document: ON_NEW_MESSAGE_SUBSCRIPTION,
+        variables: {
+          userId: 111111111
+        },
         // this is where the magic happens.
         updateQuery: this.updateQuery,
         onError: (err) => console.error(err),

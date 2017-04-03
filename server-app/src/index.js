@@ -13,8 +13,17 @@ const appWS = createServer((request, response) => {
 });
 
 const subscriptionServer = new SubscriptionServer({
-  onConnect: async(connectionParams) => {
+  onConnect: async (connectionParams, webSocket) => {
     console.log('WebSocket connection established');
+    // the following object fields will be added to subscriptions context and filter methods
+    return {
+      clientUserId: connectionParams.userId
+    }
+  },
+  onSubscribe: (subscriptionParams, subscription, webSocket) => {
+    console.log('Subscription established');
+    // context provided in subscription.context
+    return subscription;
   },
   subscriptionManager: subscriptionManager
 }, {
@@ -29,7 +38,8 @@ appWS.listen(5000, () => {
 // Init HTTP server and GraphQL Endpoints
 const app = express();
 app.use('*', cors());
-app.use('/graphql', bodyParser.json(), graphqlExpress(request => ({schema})));
+// app.use('/graphql', bodyParser.json(), graphqlExpress(request => ({schema, context: {user: request.session.user}})));
+app.use('/graphql', bodyParser.json(), graphqlExpress(request => ({schema, context: {serverUserId: 333333333}})));
 app.use('/graphiql', graphiqlExpress({endpointURL: '/graphql', query: 'query { messages }'}));
 
 app.listen(5060, () => {

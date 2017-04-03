@@ -6,7 +6,9 @@ const uri = 'http://localhost:5060/graphql';
 // Subscriptions - Create WebSocket client
 const wsClient = new SubscriptionClient('ws://localhost:5000', {
   reconnect: true,
-  connectionParams: {}
+  connectionParams: {
+    userId: 333333333
+  }
 });
 
 let networkInterface = addGraphQLSubscriptions(createNetworkInterface({uri}), wsClient);
