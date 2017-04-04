@@ -47,14 +47,21 @@ yarn start
 ## Test it
 
 1. Open a browser window with the [client page](http://localhost:3000)
-2. Open another browser window with [GraphiQL](http://localhost:5060/graphiql?operationName=&query=mutation+AddMessage+%7B+addMessage%28message%3A+%22Hello+from+Apollo+Susbcriptions%22%29%7D) and press ►
+2. Open another browser window with [GraphiQL](localhost:5060/graphiql?operationName=AddMessage&query=mutation+AddMessage%28%24message%3A+String%21%2C+%24broadcast%3A+Boolean%21%29+%7B%0A+addMessage%28message%3A+%24message%2C+broadcast%3A+%24broadcast%29%0A%7D&variables=%7B%0A+%22message%22%3A+%22Kombucha%22%2C%0A+%22broadcast%22%3A+true%0A%7D) and press ►
+
+
 
 Your client page should now be displaying the new message.
 
 Using CURL to exercise GraphQL Mutation:
 ```bash
-curl -k -H "Content-Type: application/json" -X POST -d '{ "operationName": null, "query": "mutation { addMessage(message: \"My CURL message\") }", "variables": "{}" }' http://localhost:5060/graphql
+curl -k -H "Content-Type: application/json" -X POST -d '{ "operationName": null, "query": "mutation AddMessage { addMessage(message: \"My CURL message\", broadcast: false) }", "variables": "{}" }' http://localhost:5060/graphql
 ```
+
+## Using the subscription Observable
+
+Check the [observable](https://github.com/bmsantos/apollo-graphql-subscriptions-example/tree/observable) branch for the simplest subscription implementation.
+
 
 ## Using the withApollo decorator
 
