@@ -11,6 +11,12 @@ const ON_NEW_MESSAGE_SUBSCRIPTION = gql`
     }
 `;
 
+const MUTATE_MESSAGE = gql`
+    mutation AddMessage($message: String!) {
+        addMessage(message: $message)
+    }
+`;
+
 //@withApollo - react-scripts do not yet support decorators - https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#can-i-use-decorators
 class App extends Component {
 
@@ -19,6 +25,7 @@ class App extends Component {
     this.state = {
       messageList: []
     };
+    this.mutationMessage = "Hello Apollo GraphQL Subscriptions";
   }
 
   componentWillReceiveProps = (nextProps) => {
@@ -69,6 +76,18 @@ class App extends Component {
     return messages;
   };
 
+  updateMutationMessage = (event) => {
+    this.mutationMessage = event.target.value;
+  };
+
+  onMutationSubmit = () => {
+     this.props.client.mutate({
+       operationName: "AddMessage",
+       mutation: MUTATE_MESSAGE,
+       variables: { message: this.mutationMessage }
+     });
+  };
+
   render() {
     const {loading} = this.props.data;
     console.log(this.props);
@@ -86,6 +105,10 @@ class App extends Component {
             You should see a console entry in this window with the above message.
           </p>
         </header>
+
+        <input type="text" onChange={this.updateMutationMessage.bind(this)} defaultValue={this.mutationMessage}/>
+        <input type="button" onClick={this.onMutationSubmit.bind(this)} value="Mutate"/>
+
         { loading ? (<p>Loading…</p>) : (
           <ul> { this.state.messageList.map(entry => JSON.parse(entry)).map(entry => (
             <li key={entry.id}>{entry.message}</li>)) }

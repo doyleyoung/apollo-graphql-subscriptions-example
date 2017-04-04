@@ -28,7 +28,7 @@ const resolvers = {
     addMessage(root, {message}, context) {
       let entry = JSON.stringify({id: messages.length, message: message});
       messages.push(entry);
-      pubsub.publish('newMessage', { entry: entry, serverUserId: context.serverUserId } );
+      pubsub.publish('newMessage', { entry: entry, authToken: context.authToken } );
       return messages;
     },
   },
@@ -43,7 +43,7 @@ const destinationFilter = (options, { filter }, subscriptionName) => ({
   // PubSub channel name (newMessage)
   ['newMessage']: {
     filter: (payload, context) => {
-      if (payload.serverUserId === context.clientUserId) {
+      if (payload.authToken === context.authToken) {
         return payload.entry;
       }
       return null;
