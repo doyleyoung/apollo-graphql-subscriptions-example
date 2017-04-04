@@ -1,28 +1,31 @@
-import { ApolloClient, createNetworkInterface, gql } from "react-apollo";
-import { SubscriptionClient, addGraphQLSubscriptions } from "subscriptions-transport-ws";
+import { ApolloClient, createNetworkInterface } from "react-apollo";
+import { addGraphQLSubscriptions, SubscriptionClient } from "subscriptions-transport-ws";
 
 const uri = 'http://localhost:5060/graphql';
+
+const authToken = Math.floor((Math.random() * 100000000) + 1);
 
 // Subscriptions - Create WebSocket client
 const wsClient = new SubscriptionClient('ws://localhost:5000', {
   reconnect: true,
-  connectionParams: {}
+  connectionParams: {
+    authToken: authToken
+  }
 });
 
-let networkInterface = addGraphQLSubscriptions(createNetworkInterface({uri}), wsClient);
-
-const client = new ApolloClient({ networkInterface });
-
-let subOptions = {
-  query: gql`
-      subscription onNewMessage {
-          newMessage
-      }
-  `,
-  variables: {}
+const authTokenMiddleware = {
+  applyMiddleware(req, next) {
+    if (!req.options.headers) {
+      req.options.headers = {};
+    }
+    req.options.headers['authToken'] = authToken;
+    next();
+  }
 };
 
-// The subscribe method seems to be creating an Observable to be subscribed to
-let subsObservable = client.subscribe(subOptions);
+let networkInterface = addGraphQLSubscriptions(createNetworkInterface({uri}), wsClient);
+networkInterface.use([authTokenMiddleware]);
 
-export { client, subsObservable };
+const client = new ApolloClient({networkInterface});
+
+export default client;
