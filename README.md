@@ -1,5 +1,10 @@
 # Apollo GraphQL Subscriptions Example
 
+<p align="center">
+  <img src="https://github.com/bmsantos/apollo-graphql-subscriptions-example/raw/filtering/subs.gif" />
+</p>
+
+
 Simple application used to demonstrate minimalistic setup for an Apollo GraphQL Subscriptions architecture.
 
 ## System Architecture
