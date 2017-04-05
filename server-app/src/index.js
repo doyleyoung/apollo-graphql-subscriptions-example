@@ -5,6 +5,7 @@ import {subscriptionManager, schema} from "./subscriptions";
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
+require("babel-polyfill");
 
 // Create WebSocket server
 const appWS = createServer((request, response) => {
