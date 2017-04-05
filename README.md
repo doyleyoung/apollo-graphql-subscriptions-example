@@ -26,7 +26,7 @@ Simple application used to demonstrate minimalistic setup for an Apollo GraphQL 
  * Web page opens websocket tunnel to GraphQL server and subscribes to new messages
  * GraphQL mutations can then be submitted to the GraphQL server and new messages submitted to websocket clients for browser update
 
-The master branch implementation uses filtering to decide if a message is to be sent to a given subscriber. The client app generates a random number to be used as the auth token. All requests placed to the GraphQL server will include the auth token in it. At the server, the auth token will be stored in the GraphQL context to be eventually used by the filter function used to validate if a message is intended to be sent to a given subscriber. In a real application, the GraphQL server would have to first validate the auth token against a token provider before proceding with any request. 
+The master branch implementation uses filtering to decide if a message is to be sent to a given subscriber. The client app generates a random number to be used as the auth token. All requests placed to the GraphQL server will include the auth token in it. At the server, the auth token will be stored in the GraphQL context and eventually used by the filter function that validates if a message is intended to be sent to any given subscriber. In a real application, the GraphQL server would have to first validate the auth token against a token provider before proceding with any request. 
 
 
 ## Start Susbcription Client and Server apps
