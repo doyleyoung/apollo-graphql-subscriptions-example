@@ -40,14 +40,14 @@ class App extends Component {
       if (this.subscription) {
         if (nextProps.data.messages !== this.props.data.messages) {
           // if the feed has changed, we need to unsubscribe before resubscribing
-          this.subscription.unsubscribe();
+          this.unsubscribe();
         } else {
           // we already have an active subscription with the right params
           return;
         }
       }
 
-      this.subscription = nextProps.data.subscribeToMore({
+      this.unsubscribe = nextProps.data.subscribeToMore({
         document: ON_NEW_MESSAGE_SUBSCRIPTION,
         variables: {
           userId: authToken
@@ -60,7 +60,7 @@ class App extends Component {
   };
 
   componentWillUnmount = () => {
-    this.subscription.unsubscribe();
+    this.onUnsubscribe();
   };
 
   updateQuery = (prev, {subscriptionData}) => {
@@ -92,6 +92,10 @@ class App extends Component {
      });
   };
 
+  onUnsubscribe = () => {
+    this.unsubscribe();
+  };
+
   render() {
     const {loading} = this.props.data;
     return (
@@ -119,6 +123,7 @@ class App extends Component {
         <br />
         <span>Broadcast</span>
         <input type="checkbox" onChange={this.updateBroadcastFlag.bind(this)} defaultValue={this.broadcast}/>
+        <input type="button" onClick={this.onUnsubscribe.bind(this)} value="Unsubscribe"/>
 
         { loading ? (<p>Loading…</p>) : (
           <ul> { this.state.messageList.map(entry => JSON.parse(entry)).map(entry => (
