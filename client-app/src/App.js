@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { gql, graphql, withApollo } from "react-apollo";
+import { authToken } from "./net_interface"
 
 const GET_MESSAGES_QUERY = gql`query {
     messages
@@ -49,7 +50,7 @@ class App extends Component {
       this.subscription = nextProps.data.subscribeToMore({
         document: ON_NEW_MESSAGE_SUBSCRIPTION,
         variables: {
-          userId: 111111111
+          userId: authToken
         },
         // this is where the magic happens.
         updateQuery: this.updateQuery,
@@ -100,11 +101,15 @@ class App extends Component {
           <p>
             Open <a href="http://localhost:5060/graphiql">GraphiQL</a> and submit the following mutation:
             <br />
-            <pre>
+            <br />
+          </p>
+          <pre>
             mutation AddMessage {'{\n    '}
               addMessage(message: "Hello Apollo Subscriptions", broadcast: true)
             {'\n}\n'}
-            </pre>
+          </pre>
+          <p>
+            <br />
             You should see a console entry in this window with the above message.
           </p>
         </header>
