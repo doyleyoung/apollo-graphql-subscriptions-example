@@ -20,11 +20,12 @@ const subscriptionServer = new SubscriptionServer({
       authToken: connectionParams.authToken
     }
   },
-  // onSubscribe: (subscriptionParams, subscription, webSocket) => {
-  //   console.log('Subscription established');
-  //   // context provided in subscription.context
-  //   return subscription;
-  // },
+  onUnsubscribe: (a, b) => {
+    console.log('Unsubscribing');
+  },
+  onDisconnect: (a, b) => {
+    console.log('Disconnecting');
+  },
   subscriptionManager: subscriptionManager
 }, {
   server: appWS,
@@ -38,7 +39,6 @@ appWS.listen(5000, () => {
 // Init HTTP server and GraphQL Endpoints
 const app = express();
 app.use('*', cors());
-// app.use('/graphql', bodyParser.json(), graphqlExpress(request => ({schema, context: {user: request.session.user}})));
 app.use('/graphql', bodyParser.json(), graphqlExpress(request =>
   ({schema, context: {authToken: parseInt(request.headers.authtoken)}}))
 );

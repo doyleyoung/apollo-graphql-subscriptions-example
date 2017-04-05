@@ -28,4 +28,4 @@ networkInterface.use([authTokenMiddleware]);
 
 const client = new ApolloClient({networkInterface});
 
-export default client;
+export { client as default, authToken };
