@@ -34,6 +34,7 @@ const resolvers = {
   },
   Subscription: {
     newMessage(message, variables, context, subscription) {
+      console.log(`Serving subscription for user ${variables.userId}`);
       return message.entry;
     }
   },
