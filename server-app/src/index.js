@@ -39,11 +39,18 @@ appWS.listen(5000, () => {
 
 // Init HTTP server and GraphQL Endpoints
 const app = express();
+
 app.use('*', cors());
+
 app.use('/graphql', bodyParser.json(), graphqlExpress(request =>
   ({schema, context: {authToken: parseInt(request.headers.authtoken)}}))
 );
-app.use('/graphiql', graphiqlExpress({endpointURL: '/graphql', query: 'query { messages }'}));
+
+app.use('/graphiql', graphiqlExpress({
+  endpointURL: '/graphql',
+  subscriptionsEndpoint: 'ws://localhost:5000/',
+  query: 'query { messages }'
+}));
 
 app.listen(5060, () => {
   console.log(`Server listening on port 5060`);
