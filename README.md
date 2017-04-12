@@ -48,11 +48,11 @@ yarn start
 ## Test it
 
 1. Open a browser window with the [client page](http://localhost:3000)
-2. Open another browser window with [GraphiQL](http://localhost:5060/graphiql?operationName=AddMessage&query=mutation+AddMessage%28%24message%3A+String%21%2C+%24broadcast%3A+Boolean%21%29+%7B%0A+addMessage%28message%3A+%24message%2C+broadcast%3A+%24broadcast%29%0A%7D&variables=%7B%0A+%22message%22%3A+%22Kombucha%22%2C%0A+%22broadcast%22%3A+true%0A%7D) and press ►
+1. Open another browser window with [GraphiQL Subscriptions](http://localhost:5060/graphiql?operationName=OnNewMessage&query=subscription+OnNewMessage+%7B%0A++newMessage(userId%3A+123)%0A%7D) and press ►
+1. Open another browser window with [GraphiQL Mutations](http://localhost:5060/graphiql?operationName=AddMessage&query=mutation+AddMessage%28%24message%3A+String%21%2C+%24broadcast%3A+Boolean%21%29+%7B%0A+addMessage%28message%3A+%24message%2C+broadcast%3A+%24broadcast%29%0A%7D&variables=%7B%0A+%22message%22%3A+%22Kombucha%22%2C%0A+%22broadcast%22%3A+true%0A%7D) and press ►
 
 
-
-Your client page should now be displaying the new message.
+Your client page as well as the GRaphiQL subscription page should now be displaying the new message.
 
 Using CURL to exercise GraphQL Mutation:
 ```bash
