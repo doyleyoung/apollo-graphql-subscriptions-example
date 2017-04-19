@@ -1,10 +1,10 @@
 {
   "name": "sub-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Apollo GraphQL Server Subscriptions example",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --debug=5858 --exec babel-node src/index.js",
+    "dev": "nodemon --debug=5859 --exec babel-node src/index.js",
     "prestart": "babel src --out-dir dist",
     "start": "node dist/index.js"
   },

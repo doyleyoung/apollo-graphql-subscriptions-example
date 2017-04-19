@@ -1,5 +1,5 @@
-import {PubSub, SubscriptionManager} from "graphql-subscriptions";
-import {makeExecutableSchema} from "graphql-tools";
+import { PubSub, SubscriptionManager } from "graphql-subscriptions";
+import { makeExecutableSchema } from "graphql-tools";
 
 const pubsub = new PubSub();
 
@@ -28,7 +28,7 @@ const resolvers = {
     addMessage(root, {message, broadcast}, context) {
       let entry = JSON.stringify({id: messages.length, message: message});
       messages.push(entry);
-      pubsub.publish('newMessage', { entry: entry, authToken: context.authToken, broadcast } );
+      pubsub.publish('newMessage', {entry: entry, authToken: context.authToken, broadcast});
       return messages;
     },
   },
@@ -40,7 +40,7 @@ const resolvers = {
   },
 };
 
-const destinationFilter = (options, { filter }, subscriptionName) => ({
+const destinationFilter = (options, {filter}, subscriptionName) => ({
   // PubSub channel name (newMessage)
   ['newMessage']: {
     filter: (payload, context) => {
@@ -60,4 +60,4 @@ const setupFunctions = {
 const schema = makeExecutableSchema({typeDefs, resolvers});
 const subscriptionManager = new SubscriptionManager({schema, pubsub, setupFunctions});
 
-export {subscriptionManager, pubsub, schema, resolvers};
+export { subscriptionManager, pubsub, schema, resolvers };
