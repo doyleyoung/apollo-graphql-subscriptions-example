@@ -60,7 +60,9 @@ class App extends Component {
   };
 
   componentWillUnmount = () => {
-    this.onUnsubscribe();
+    // The subscribeToMore subscription is stopped automatically when its dependent query is stopped,
+    // so we don’t need to unsubscribe manually. 
+    // this.onUnsubscribe();
   };
 
   updateQuery = (prev, {subscriptionData}) => {
