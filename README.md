@@ -29,7 +29,7 @@ Simple application used to demonstrate minimalistic setup for an Apollo GraphQL 
 The master branch implementation uses filtering to decide if a message is to be sent to a given subscriber. The client app generates a random number to be used as the auth token. All requests placed to the GraphQL server will include the auth token in it. At the server, the auth token will be stored in the GraphQL context and eventually used by the filter function that validates if a message is intended to be sent to any given subscriber. In a real application, the GraphQL server would have to first validate the auth token against a token provider before proceding with any request. 
 
 
-## Start Susbcription Client and Server apps
+## Start Subscription Client and Server apps
 
 In a terminal do:
 
@@ -69,6 +69,6 @@ Check the [observable](https://github.com/bmsantos/apollo-graphql-subscriptions-
 For an example using the [***withApollo***](http://dev.apollodata.com/react/higher-order-components.html#withApollo) decorator see the [withApollo branch](https://github.com/bmsantos/apollo-graphql-subscriptions-example/tree/withApollo).
 
 
-## Using Apollo's susbcribeToMore
+## Using Apollo's subscribeToMore
 
 Checkout [subscribeToMore branch](https://github.com/bmsantos/apollo-graphql-subscriptions-example/tree/subscribeToMore) for an example implementation using Apollo's [***subscribeToMore***](http://dev.apollodata.com/react/subscriptions.html#subscribe-to-more) subscription callback function.
